@@ -5,6 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
+    "clear-build-cache": "rm -rf .cache/ dist/",
+    "dev": "parcel index.html",
+    "build": "SET NODE_ENV=production parcel build ./index.html --public-url ./",
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

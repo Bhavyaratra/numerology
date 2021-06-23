@@ -740,9 +740,9 @@ if ("development" !== "production") {
   })();
 }
 
-},{}],"3L2qK":[function(require,module,exports) {
+},{}],"300mX":[function(require,module,exports) {
 var HMR_HOST = null;
-var HMR_PORT = 1234;
+var HMR_PORT = 51068;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d751713988987e9331980363e24189ce";
 module.bundle.HMR_BUNDLE_ID = "ca6253830bf612b84ef417e863f10152";
@@ -26776,6 +26776,6 @@ const Numerology = {
   33: "The 33 means Healer, Teacher, Counselor."
 };
 
-},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}]},["1j6wU","3L2qK","5Qvcc"], "5Qvcc", "parcelRequire71ee")
+},{"@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y"}]},["1j6wU","300mX","5Qvcc"], "5Qvcc", "parcelRequire71ee")
 
 //# sourceMappingURL=index.63f10152.js.map
