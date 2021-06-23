@@ -21,6 +21,9 @@ function Home(){
     //reduce the sum of digits till it is a single digit or 11/22/33.
     function reduceSum(n){
         let sum=0;
+        const strt = new Date();
+        console.log(strt.getTime());
+        var end;
         if(n===11||n===22||n===33){
             return n;
         }
@@ -35,6 +38,12 @@ function Home(){
             }
             sum=sum+n%10;
             n=Math.floor(n/10);
+            end = new Date();
+            //handle infinite loops
+            if(end.getTime()-strt.getTime()>1000){
+                return 0;
+            }
+
         }
         return sum;
     }
