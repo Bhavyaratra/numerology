@@ -28,7 +28,7 @@ function Home(){
             return n;
         }
         while(n>0 || sum>9){
-            if(n<0){            //11,22,33 are master numbers.
+            if(n==0){            //11,22,33 are master numbers.
                 if(sum===11||sum===22||sum===33){
                     return sum;
                 }else{
