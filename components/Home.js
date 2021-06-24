@@ -1,11 +1,14 @@
 import React from 'react'
 import './styles/home.css'
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import {Numerology} from '../numerology'
 
-const numberChart=[1,2,3,4,5,8,3,5,1,1,2,3,4,5,7,8,1,2,3,4,6,6,6,5,1,7]
-                //[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]
-
+const numberChart={
+    A:1, B:2, C:3, D:4, E:5, F:8, G:3, H:5, I:1, J:1, K:2, L:3, M:4, N:5, O:7, P:8, Q:1, R:2,
+    S:3, T:4, U:6, V:6, W:6, X:5, Y:1, Z:7,
+    a:1, b:2, c:3, d:4, e:5, f:8, g:3, h:5, i:1, j:1, k:2, l:3, m:4, n:5, o:7, p:8, q:1, r:2,
+    s:3, t:4, u:6, v:6, w:6, x:5, y:1, z:7 
+}
 
 function Home(){
     const [name,setName]=useState('');
@@ -20,68 +23,55 @@ function Home(){
 
     //reduce the sum of digits till it is a single digit or 11/22/33.
     function reduceSum(n){
-        let sum=0;
-        const strt = new Date();
-        console.log(strt.getTime());
-        var end;
         if(n===11||n===22||n===33){
             return n;
         }
-        while(n>0 || sum>9){
-            if(n==0){            //11,22,33 are master numbers.
-                if(sum===11||sum===22||sum===33){
-                    return sum;
-                }else{
-                    n=sum;
-                    sum=0;
-                }
-            }
-            sum=sum+n%10;
-            n=Math.floor(n/10);
-            end = new Date();
-            //handle infinite loops
-            if(end.getTime()-strt.getTime()>1000){
-                return 0;
-            }
-
+        if(n==0){
+            return 0;
         }
-        return sum;
+        //returns single digit number
+        return (n%9==0)? 9 : n%9;
     }
 
     function handleSubmit(e){
         e.preventDefault();
         setUser(name);
+        var letters = /^[A-Za-z]+$/; //regex to check if name contains only string and not numbers
         if(name.length===1){
-           alert('enter name properly!')
+           setLetRender(false);
+           alert('enter name properly!');
+           return 0;
         }
-        var upper=name.toUpperCase().replaceAll(' ','');
-      
-        //total sum of alphabet,vowels,consonents
-        var totalSum=0,vowelSum=0,consonentSum=0;
-        for(let i=0;i<upper.length;i++){        
-                
-            totalSum=totalSum + numberChart[upper[i].charCodeAt(0)-'A'.charCodeAt(0)];
-        
-            if(upper[i]==='A'||upper[i]==='E'||upper[i]==='I'||upper[i]==='O'||upper[i]==='U'){
-                vowelSum=vowelSum + numberChart[upper[i].charCodeAt(0)-'A'.charCodeAt(0)];
-            }else{
-                consonentSum=consonentSum + numberChart[upper[i].charCodeAt(0)-'A'.charCodeAt(0)];
-            }
-        }                                                       
-            setNamank(totalSum);
-            setDestiny(reduceSum(totalSum));
-            setSoul(reduceSum(vowelSum));
-            setDream(reduceSum(consonentSum));
+        var fname=name.replaceAll(' ','');
+
+        if(fname.match(letters)){
+            setLetRender(true);
+            //total sum of alphabet,vowels,consonents
+            var totalSum=0,vowelSum=0,consonentSum=0;
+            for(let i=0;i<fname.length;i++){        
+                    
+                totalSum=totalSum + numberChart[fname[i]];
+            
+                if(fname[i]==='A'||fname[i]==='E'||fname[i]==='I'||fname[i]==='O'||fname[i]==='U'
+                    || fname[i]==='a'||fname[i]==='e'||fname[i]==='i'||fname[i]==='o'||fname[i]==='u'){
+                    vowelSum=vowelSum + numberChart[fname[i]];
+                }
+            }           
+                consonentSum=totalSum-vowelSum;                                            
+                setNamank(totalSum);
+                setDestiny(reduceSum(totalSum));
+                setSoul(reduceSum(vowelSum));
+                setDream(reduceSum(consonentSum));
+        }else{
+            
+            setLetRender(false);
+
+            alert('Enter name properly!');
+        }    
         setName('');
     }
 
-function Render(){
-    useEffect(() => {
-        if(destiny!==0){
-            setLetRender(true);
-        }
-    }, [destiny])
-    
+function Render(){  
     if(letRender){
         return(
         <div className="render">
@@ -96,9 +86,8 @@ function Render(){
         </div>
         )
     }else{
-        return(
-            <>
-            </>
+        return( 
+            <span></span>
         )
         }
     }    
