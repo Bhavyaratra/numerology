@@ -48,15 +48,13 @@ function Home(){
             setLetRender(true);
             //total sum of alphabet,vowels,consonents
             var totalSum=0,vowelSum=0,consonentSum=0;
-            for(let i=0;i<fname.length;i++){        
-                    
-                totalSum=totalSum + numberChart[fname[i]];
-            
-                if(fname[i]==='A'||fname[i]==='E'||fname[i]==='I'||fname[i]==='O'||fname[i]==='U'
-                    || fname[i]==='a'||fname[i]==='e'||fname[i]==='i'||fname[i]==='o'||fname[i]==='u'){
-                    vowelSum=vowelSum + numberChart[fname[i]];
+            fname.split('').map((Char)=>{  
+                totalSum=totalSum + numberChart[Char];
+                if(Char==='A'||Char==='E'||Char==='I'||Char==='O'||Char==='U'
+                    || Char==='a'||Char==='e'||Char==='i'||Char==='o'||Char==='u'){
+                    vowelSum=vowelSum + numberChart[Char];
                 }
-            }           
+            })     
                 consonentSum=totalSum-vowelSum;                                            
                 setNamank(totalSum);
                 setDestiny(reduceSum(totalSum));
