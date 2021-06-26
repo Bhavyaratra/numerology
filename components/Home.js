@@ -10,6 +10,11 @@ const numberChart={
     s:3, t:4, u:6, v:6, w:6, x:5, y:1, z:7 
 }
 
+const vowel={
+    A:1, E:5, I:1, O:7, U:6,
+    a:1, e:5, i:1, o:7, u:6
+}
+
 function Home(){
     const [name,setName]=useState('');
     const [user,setUser]=useState('');
@@ -26,11 +31,8 @@ function Home(){
         if(n===11||n===22||n===33){
             return n;
         }
-        if(n==0){
-            return 0;
-        }
         //returns single digit number
-        return (n%9==0)? 9 : n%9;
+        return ((n-1)%9) + 1;
     }
 
     function handleSubmit(e){
@@ -42,28 +44,21 @@ function Home(){
            alert('enter name properly!');
            return 0;
         }
-        var fname=name.replaceAll(' ','');
+        var fname=name.replaceAll(' ','')
 
         if(fname.match(letters)){
             setLetRender(true);
-            //total sum of alphabet,vowels,consonents
-            var totalSum=0,vowelSum=0,consonentSum=0;
-            fname.split('').map((Char)=>{  
-                totalSum=totalSum + numberChart[Char];
-                if(Char==='A'||Char==='E'||Char==='I'||Char==='O'||Char==='U'
-                    || Char==='a'||Char==='e'||Char==='i'||Char==='o'||Char==='u'){
-                    vowelSum=vowelSum + numberChart[Char];
-                }
-            })     
-                consonentSum=totalSum-vowelSum;                                            
+            fname=fname.split('');     
+            
+            var totalSum=fname.map((Char)=>numberChart[Char] || 0).reduce((a,b)=>a+b,0);
+            var vowelSum=fname.map((Char)=>vowel[Char] || 0).reduce((a,b)=>a+b,0);
+            var consonentSum=totalSum-vowelSum;                                            
                 setNamank(totalSum);
                 setDestiny(reduceSum(totalSum));
                 setSoul(reduceSum(vowelSum));
                 setDream(reduceSum(consonentSum));
         }else{
-            
             setLetRender(false);
-
             alert('Enter name properly!');
         }    
         setName('');
